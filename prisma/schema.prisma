@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Position {
+  gk
+  def
+  mid
+  fwd
+}
+
+enum PlayerStatus {
+  aviable
+  doubtful //під питанням
+  injured
+  suspended //дискваліфікація
+  left_league //залишив лігу
+}
+
+model Player {
+  id           String   @id @default(uuid())
+  firstName    String   @map("first_name")
+  lastName     String   @map("last_name")
+  displayName  String   @map("display_name")
+  photoUrl     String?  @map("photo_url")
+  jerseyNumber Int?     @map("jersey_number")
+  position     Position
+  price        Decimal  @db.Decimal(4, 1)
+
+  // Статус
+  status            PlayerStatus @default(aviable)
+  statusDescription String?      @map("status_description") // Причина 
+  chanceOfPlaying   Int?         @default(100) @map("chance_of_playing")
+
+  // Фентезі
+  totalPoints       Int   @default(0) @map("total_points")
+  form              Float @default(0.0)
+  selectedByPercent Float @default(0.0) @map("selected_by_percent")
+
+  // Звязки
+  teamId String @map("team_id")
+  team   Team   @relation(fields: [teamId], references: [id])
+
+  gameweekStats    PlayerGameweekStat[]
+  fantasyTeamPicks FantasyTeamPick[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([teamId])
+  @@index([position])
+  @@map("player")
+}
+
+model Team {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  shortName String   @map("short_name")
+  badgeUrl  String?  @map("badge_url")
+  players   Player[]
+
+  @@map("team")
+}
+
+model PlayerGameweekStat {
+  id         String   @id @default(uuid())
+  playerId   String   @map("player_id")
+  player     Player   @relation(fields: [playerId], references: [id])
+  gameweekId String   @map("gameweek_id")
+  gameweek   Gameweek @relation(fields: [gameweekId], references: [id])
+
+  minutesPlayed Int     @default(0) @map("minutes_played")
+  goals         Int     @default(0)
+  assists       Int     @default(0)
+  cleanSheet    Boolean @default(false) @map("clean_sheet")
+  goalsConceded Int     @default(0) @map("goals_conceded")
+  yellowCards   Int     @default(0) @map("yellow_cards")
+  redCards      Int     @default(0) @map("red_cards")
+  saves         Int     @default(0)
+  points        Int     @default(0)
+
+  @@unique([playerId, gameweekId])
+  @@map("player_gameweek_stat")
+}
+
+model Gameweek {
+  id          String               @id @default(uuid())
+  number      Int                  @unique
+  deadline    DateTime
+  isFinished  Boolean              @default(false) @map("is_finished")
+  playerStats PlayerGameweekStat[]
+
+  @@map("gameweek")
+}
+
+model FantasyTeamPick {
+  id            String  @id @default(uuid())
+  fantasyTeamId String  @map("fantasy_team_id")
+  playerId      String  @map("player_id")
+  player        Player  @relation(fields: [playerId], references: [id])
+  isCaptain     Boolean @default(false) @map("is_captain")
+  isViceCaptain Boolean @default(false) @map("is_vice_captain")
+  isBench       Boolean @default(false) @map("is_bench")
+  orderNumber   Int     @map("order_number")
+
+  @@index([fantasyTeamId])
+  @@index([playerId])
+  @@map("fantasy_team_pick")
+}
