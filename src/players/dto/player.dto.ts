@@ -1,4 +1,5 @@
 import { PlayerStatus, Position } from '../../generated/prisma/enums';
+import { TeamDto } from '../../team/dto/team.dto';
 
 export class PlayerDto {
   id!: string;
@@ -16,7 +17,7 @@ export class PlayerDto {
   form!: number;
   selectedByPercent!: number;
   teamId!: string;
-  // team!: Team[];
+  team?: TeamDto;
   // gameweekStats: PlayerGameweekStat[];
   // fantasyTeamPicks: FantasyTeamPick[];
 }

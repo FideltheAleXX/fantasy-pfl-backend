@@ -1,5 +1,4 @@
 import {
-  IsDecimal,
   IsEnum,
   IsInt,
   IsNotEmpty,
@@ -8,6 +7,7 @@ import {
   IsString,
 } from 'class-validator';
 import { PlayerStatus, Position } from '../../generated/prisma/enums';
+import { TeamDto } from '../../team/dto/team.dto';
 
 export class CreatePlayerDto {
   @IsString()
@@ -64,7 +64,4 @@ export class CreatePlayerDto {
   @IsString()
   @IsNotEmpty()
   teamId!: string;
-  // team!: Team[];
-  // gameweekStats: PlayerGameweekStat[];
-  // fantasyTeamPicks: FantasyTeamPick[];
 }

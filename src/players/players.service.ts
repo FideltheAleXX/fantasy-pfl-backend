@@ -6,6 +6,12 @@ import { PrismaService } from '../prisma/prisma.service';
 @Injectable()
 export class PlayersService {
   constructor(private readonly prisma: PrismaService) {}
+  private toDto(player: any): PlayerDto {
+    return {
+      ...player,
+      price: player.price.toString(),
+    };
+  }
 
   async getAll(): Promise<PlayerDto[]> {
     const players = await this.prisma.player.findMany({
@@ -15,10 +21,7 @@ export class PlayersService {
         },
       ],
     });
-    return players.map((player) => ({
-      ...player,
-      price: player.price.toString(),
-    }));
+    return players.map((player) => this.toDto(player));
   }
 
   async getOne(id: string): Promise<PlayerDto> {
@@ -30,32 +33,22 @@ export class PlayersService {
       throw new NotFoundException(`Player with ID "${id}" not found`);
     }
 
-    return {
-      ...player,
-      price: player.price.toString(),
-    };
+    return this.toDto(player);
   }
-  //TODO
+
   async createPlayer(data: CreatePlayerDto): Promise<PlayerDto> {
-    const { id } = data;
-
-    return this.prisma.player.create({
-      data: {
-        id,
-      },
+    const player = await this.prisma.player.create({
+      data,
     });
+    return this.toDto(player);
   }
 
-  //TODO
   async updatePlayer(id: string, data: CreatePlayerDto): Promise<PlayerDto> {
-    const { firstName } = data;
-
-    return this.prisma.player.update({
+    const player = await this.prisma.player.update({
       where: { id },
-      data: {
-        firstName,
-      },
+      data,
     });
+    return this.toDto(player);
   }
 
   async deletePlayer(id: string) {
