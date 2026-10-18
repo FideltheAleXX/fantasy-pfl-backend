@@ -1,9 +1,16 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  ForbiddenException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
 import { UserDto } from './dto/user.dto';
 import { User } from '../generated/prisma/client';
 import * as bcrypt from 'bcrypt';
+import { LoginDto } from './dto/login.dto';
+import { UserStatus } from '../generated/prisma/enums';
 
 @Injectable()
 export class AuthService {
@@ -36,6 +43,29 @@ export class AuthService {
         passwordHash,
       },
     });
+
+    return this.toDto(user);
+  }
+
+  async login(data: LoginDto): Promise<UserDto> {
+    const user = await this.prisma.user.findUnique({
+      where: { email: data.email },
+    });
+    if (!user) {
+      throw new UnauthorizedException('Невірний email або пароль');
+    }
+
+    if (user.status === UserStatus.banned) {
+      throw new ForbiddenException('Акаунт заблоковано');
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      data.password,
+      user.passwordHash,
+    );
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Невірний email або пароль');
+    }
 
     return this.toDto(user);
   }

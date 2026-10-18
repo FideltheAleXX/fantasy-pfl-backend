@@ -1,7 +1,8 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { UserDto } from './dto/user.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -11,15 +12,14 @@ export class AuthController {
   async registration(@Body() data: RegisterDto): Promise<UserDto> {
     return this.authService.registration(data);
   }
+
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  async login(@Body() data: LoginDto): Promise<UserDto> {
+    return this.authService.login(data);
+  }
 }
 
-// // 2. Log In
-// authRouter.post('/login', validateRequest(loginSchema), authController.login);
-
-// // 3. Log Out
-// authRouter.post('/logout', authController.logout);
-
-// // 4. OAuth2.0 via Google
 // authRouter.get('/google', authController.startGoogleAuthentication);
 
 // authRouter.get('/google/callback', authController.googleCallback);

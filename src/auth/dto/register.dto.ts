@@ -3,7 +3,7 @@ import { Transform } from 'class-transformer';
 
 export class RegisterDto {
   @IsEmail({}, { message: 'Некоректный формат email' })
-  @IsNotEmpty({ message: 'Email обовязковий до заповнення' })
+  @IsNotEmpty({ message: 'Email обов’язковий до заповнення' })
   @Transform(({ value }) =>
     typeof value === 'string' ? value.trim().toLowerCase() : value,
   )
