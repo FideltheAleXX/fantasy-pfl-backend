@@ -7,6 +7,20 @@ datasource db {
   provider = "postgresql"
 }
 
+enum UserRole {
+  admin
+  user
+
+  @@map("user_role")
+}
+
+enum UserStatus {
+  active
+  banned
+
+  @@map("user_status")
+}
+
 enum Position {
   gk
   def
@@ -111,4 +125,16 @@ model FantasyTeamPick {
   @@index([fantasyTeamId])
   @@index([playerId])
   @@map("fantasy_team_pick")
+}
+
+model User {
+  id           String     @id @default(uuid())
+  role         UserRole   @default(user)
+  email        String     @unique
+  passwordHash String     @map("password_hash")
+  status       UserStatus @default(active)
+  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  @@map("user")
 }

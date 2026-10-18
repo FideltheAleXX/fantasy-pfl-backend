@@ -5,8 +5,7 @@ import { TeamModule } from './team/team.module';
 import { PlayerGameweekStatModule } from './player-gameweek-stat/player-gameweek-stat.module';
 import { GameweekModule } from './gameweek/gameweek.module';
 import { FantasyTeamPickModule } from './fantasy-team-pick/fantasy-team-pick.module';
-
-import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,7 +15,7 @@ import { UsersModule } from './users/users.module';
     PlayerGameweekStatModule,
     GameweekModule,
     FantasyTeamPickModule,
-    UsersModule,
+    AuthModule,
   ],
   providers: [],
   controllers: [],
