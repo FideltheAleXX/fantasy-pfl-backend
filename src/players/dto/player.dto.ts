@@ -1,3 +1,4 @@
+import { FantasyTeamPickDto } from '../../fantasy-team-pick/dto/fantasy-team-pick.dto';
 import { PlayerStatus, Position } from '../../generated/prisma/enums';
 import { PlayerGameweekStatDto } from '../../player-gameweek-stat/dto/player-gameweek-stat.dto';
 import { TeamDto } from '../../team/dto/team.dto';
@@ -20,5 +21,5 @@ export class PlayerDto {
   teamId!: string;
   team?: TeamDto;
   gameweekStats?: PlayerGameweekStatDto[];
-  // fantasyTeamPicks?: FantasyTeamPick[];
+  fantasyTeamPicks?: FantasyTeamPickDto[];
 }
