@@ -103,38 +103,93 @@ model PlayerGameweekStat {
 }
 
 model Gameweek {
-  id          String               @id @default(uuid())
-  number      Int                  @unique
+  id          String                @id @default(uuid())
+  number      Int                   @unique
   deadline    DateTime
-  isFinished  Boolean              @default(false) @map("is_finished")
+  isFinished  Boolean               @default(false) @map("is_finished")
   playerStats PlayerGameweekStat[]
+  teamStats   FantasyTeamGameweek[]
 
   @@map("gameweek")
 }
 
 model FantasyTeamPick {
-  id            String  @id @default(uuid())
-  fantasyTeamId String  @map("fantasy_team_id")
-  playerId      String  @map("player_id")
-  player        Player  @relation(fields: [playerId], references: [id])
-  isCaptain     Boolean @default(false) @map("is_captain")
-  isViceCaptain Boolean @default(false) @map("is_vice_captain")
-  isBench       Boolean @default(false) @map("is_bench")
-  orderNumber   Int     @map("order_number")
+  id            String      @id @default(uuid())
+  fantasyTeamId String      @map("fantasy_team_id")
+  fantasyTeam   FantasyTeam @relation(fields: [fantasyTeamId], references: [id], onDelete: Cascade)
+  playerId      String      @map("player_id")
+  player        Player      @relation(fields: [playerId], references: [id])
+  isCaptain     Boolean     @default(false) @map("is_captain")
+  isViceCaptain Boolean     @default(false) @map("is_vice_captain")
+  isBench       Boolean     @default(false) @map("is_bench")
+  orderNumber   Int         @map("order_number")
 
   @@index([fantasyTeamId])
   @@index([playerId])
   @@map("fantasy_team_pick")
 }
 
+model FantasyTeam {
+  id     String @id @default(uuid())
+  name   String
+  userId String @unique @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  bank      Decimal @default(100.0) @db.Decimal(5, 1)
+  teamValue Decimal @default(100.0) @map("team_value") @db.Decimal(5, 1)
+
+  totalPoints Int  @default(0) @map("total_points")
+  overallRank Int? @map("overall_rank")
+
+  freeTransfers Int @default(1) @map("free_transfers")
+
+  // Связи
+  picks     FantasyTeamPick[]
+  gameweeks FantasyTeamGameweek[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("fantasy_team")
+}
+
+model FantasyTeamGameweek {
+  id            String      @id @default(uuid())
+  fantasyTeamId String      @map("fantasy_team_id")
+  fantasyTeam   FantasyTeam @relation(fields: [fantasyTeamId], references: [id], onDelete: Cascade)
+  gameweekId    String      @map("gameweek_id")
+  gameweek      Gameweek    @relation(fields: [gameweekId], references: [id])
+
+  // Очки за данный тур
+  points        Int @default(0) // Набранные очки
+  pointsOnBench Int @default(0) @map("points_on_bench") // Очки игроков на банке (для статистики)
+
+  // Трансферы и штрафы в этом туре
+  transfersMade Int @default(0) @map("transfers_made") // Сколько трансферов сделано перед туром
+  transfersCost Int @default(0) @map("transfers_cost") // Штраф за лишние трансферы (-4 за каждый сверх бесплатных)
+  netPoints     Int @default(0) @map("net_points") // Итоговые очки за тур: points - transfersCost
+
+  // Место в конкретном туре
+  gameweekRank Int? @map("gameweek_rank")
+
+  // Если планируете в будущем чипы (Triple Captain, Bench Boost, Wildcard):
+  // activeChip  ChipType? @map("active_chip")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([fantasyTeamId, gameweekId])
+  @@map("fantasy_team_gameweek")
+}
+
 model User {
-  id           String     @id @default(uuid())
-  role         UserRole   @default(user)
-  email        String     @unique
-  passwordHash String     @map("password_hash")
-  status       UserStatus @default(active)
-  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz()
-  updatedAt    DateTime   @updatedAt @map("updated_at")
+  id           String       @id @default(uuid())
+  role         UserRole     @default(user)
+  email        String       @unique
+  passwordHash String       @map("password_hash")
+  status       UserStatus   @default(active)
+  fantasyTeam  FantasyTeam?
+  createdAt    DateTime     @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt    DateTime     @updatedAt @map("updated_at")
 
   @@map("user")
 }
