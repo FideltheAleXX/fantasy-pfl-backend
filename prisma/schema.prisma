@@ -160,20 +160,14 @@ model FantasyTeamGameweek {
   gameweekId    String      @map("gameweek_id")
   gameweek      Gameweek    @relation(fields: [gameweekId], references: [id])
 
-  // Очки за данный тур
-  points        Int @default(0) // Набранные очки
-  pointsOnBench Int @default(0) @map("points_on_bench") // Очки игроков на банке (для статистики)
+  points        Int @default(0)
+  pointsOnBench Int @default(0) @map("points_on_bench")
 
-  // Трансферы и штрафы в этом туре
-  transfersMade Int @default(0) @map("transfers_made") // Сколько трансферов сделано перед туром
-  transfersCost Int @default(0) @map("transfers_cost") // Штраф за лишние трансферы (-4 за каждый сверх бесплатных)
-  netPoints     Int @default(0) @map("net_points") // Итоговые очки за тур: points - transfersCost
+  transfersMade Int @default(0) @map("transfers_made")
+  transfersCost Int @default(0) @map("transfers_cost")
+  netPoints     Int @default(0) @map("net_points")
 
-  // Место в конкретном туре
   gameweekRank Int? @map("gameweek_rank")
-
-  // Если планируете в будущем чипы (Triple Captain, Bench Boost, Wildcard):
-  // activeChip  ChipType? @map("active_chip")
 
   createdAt DateTime @default(now()) @map("created_at")
 
