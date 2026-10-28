@@ -1,0 +1,130 @@
+[
+  {
+    "pflId": 1534,
+    "name": "Вікторія",
+    "shortName": "ВІК",
+    "city": "Суми",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1534.png",
+    "pflUrl": "https://pfl.ua/team/view/1534"
+  },
+  {
+    "pflId": 1499,
+    "name": "СК Полтава",
+    "shortName": "ПОЛ",
+    "city": "Полтава",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1499.png",
+    "pflUrl": "https://pfl.ua/team/view/1499"
+  },
+  {
+    "pflId": 1531,
+    "name": "Фенікс-Маріуполь",
+    "shortName": "ФНК",
+    "city": "Маріуполь",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1531.png",
+    "pflUrl": "https://pfl.ua/team/view/1531"
+  },
+  {
+    "pflId": 1524,
+    "name": "Агробізнес",
+    "shortName": "АГР",
+    "city": "Волочиськ",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1524.png",
+    "pflUrl": "https://pfl.ua/team/view/1524"
+  },
+  {
+    "pflId": 1194,
+    "name": "Олександрія-2",
+    "shortName": "ОЛЕ",
+    "city": "Олександрія",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1194.png",
+    "pflUrl": "https://pfl.ua/team/view/1194"
+  },
+  {
+    "pflId": 1568,
+    "name": "Куликів-Білка",
+    "shortName": "КУЛ",
+    "city": "Куликів",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1568.png",
+    "pflUrl": "https://pfl.ua/team/view/1568"
+  },
+  {
+    "pflId": 1170,
+    "name": "Нива Тернопіль",
+    "shortName": "НИВ",
+    "city": "Тернопіль",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1170.png",
+    "pflUrl": "https://pfl.ua/team/view/1170"
+  },
+  {
+    "pflId": 1554,
+    "name": "Локомотив Київ",
+    "shortName": "ЛОК",
+    "city": "Київ",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1554.png",
+    "pflUrl": "https://pfl.ua/team/view/1554"
+  },
+  {
+    "pflId": 1007,
+    "name": "Інгулець",
+    "shortName": "ІНГ",
+    "city": "Петрове",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1007.png",
+    "pflUrl": "https://pfl.ua/team/view/1007"
+  },
+  {
+    "pflId": 1238,
+    "name": "Прикарпаття-Благо",
+    "shortName": "ПРК",
+    "city": "Івано-Франківськ",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1238.png",
+    "pflUrl": "https://pfl.ua/team/view/1238"
+  },
+  {
+    "pflId": 1493,
+    "name": "Металіст",
+    "shortName": "МЕТ",
+    "city": "Харків",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1493.png",
+    "pflUrl": "https://pfl.ua/team/view/1493"
+  },
+  {
+    "pflId": 1557,
+    "name": "ЮКСА",
+    "shortName": "ЮКС",
+    "city": "Тарасівка",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1557.png",
+    "pflUrl": "https://pfl.ua/team/view/1557"
+  },
+  {
+    "pflId": 1562,
+    "name": "Колос-2",
+    "shortName": "КОЛ",
+    "city": "Ковалівка",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1562.png",
+    "pflUrl": "https://pfl.ua/team/view/1562"
+  },
+  {
+    "pflId": 1532,
+    "name": "ФК Чернігів",
+    "shortName": "ЧЕР",
+    "city": "Чернігів",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1532.png",
+    "pflUrl": "https://pfl.ua/team/view/1532"
+  },
+  {
+    "pflId": 1241,
+    "name": "Пробій",
+    "shortName": "ПРБ",
+    "city": "Городенка",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1241.png",
+    "pflUrl": "https://pfl.ua/team/view/1241"
+  },
+  {
+    "pflId": 1498,
+    "name": "Полісся-2",
+    "shortName": "ПЛ2",
+    "city": "Житомир",
+    "badgeUrl": "https://pfl.ua/upload/tv/1/1498.png",
+    "pflUrl": "https://pfl.ua/team/view/1498"
+  }
+]
