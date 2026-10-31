@@ -3,8 +3,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as bcrypt from 'bcrypt';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '../dist/src/generated/prisma/client.js';
-import { Position, UserRole, UserStatus } from '../dist/src/generated/prisma/enums.js';
+import { PrismaClient } from '../src/generated/prisma/client';
+import { Position, UserRole, UserStatus } from '../src/generated/prisma/enums';
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL,
